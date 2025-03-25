@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'atlforms',
     'corsheaders',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
