@@ -20,9 +20,9 @@ RUN pip3 install -r requirements.txt
 # Do final prep
 COPY . /code/
 # Convert entrypoint.sh to Unix line endings and make it executable
-RUN apt-get update && apt-get install -y dos2unix && \
-    dos2unix /code/docker/prod/entrypoint.sh && \
-    chmod 755 /code/docker/prod/entrypoint.sh
+# RUN apt-get update && apt-get install -y dos2unix && \
+#     dos2unix /code/docker/prod/entrypoint.sh && \
+#     chmod 755 /code/docker/prod/entrypoint.sh
 
 # ENTRYPOINT for supervisord
 ENTRYPOINT ["/code/docker/prod/entrypoint.sh"]
