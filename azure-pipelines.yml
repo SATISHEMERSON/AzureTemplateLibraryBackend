@@ -1,0 +1,37 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+pool:
+  vmImage: 'ubuntu-latest'
+
+trigger:
+- develop
+- release
+- master
+- main
+
+pr:
+- develop
+- master
+- release
+- main
+
+steps:
+- ${{ if eq( variables['Build.SourceBranch'], 'refs/heads/develop') }}:
+  - script: |
+        docker build -f  Dockerfile -t $(dockerId).azurecr.io/$(imageName):$(Build.BuildId) .
+        docker login $(dockerId).azurecr.io -u $(dockerId) -p $pswd
+        docker push $(dockerId).azurecr.io/$(imageName):$(Build.BuildId)
+    env:
+        pswd: $(dockerPassword)
+    displayName: 'Build and Push Docker Image for ETO-Rule-Generator application'
+- ${{ elseif eq( variables['Build.SourceBranch'], 'refs/heads/main') }}:
+  - script: |
+        docker build -f  Dockerfile -t $(dockerprodId).azurecr.io/$(imageName):$(Build.BuildId) .
+        docker login $(dockerprodId).azurecr.io -u $(dockerprodId) -p $pswd
+        docker push $(dockerprodId).azurecr.io/$(imageName):$(Build.BuildId)
+    env:
+        pswd: $(dockerprodPassword)
+    displayName: 'Build and Push Docker Image for ETO-Rule-Generator application'
+

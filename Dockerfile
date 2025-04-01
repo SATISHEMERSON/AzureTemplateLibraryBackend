@@ -24,6 +24,10 @@ RUN pip3 install -r requirements.txt
 
 # Do final prep
 COPY . /code/
+# Convert entrypoint.sh to Unix line endings and make it executable
+# RUN apt-get update && apt-get install -y dos2unix && \
+#     dos2unix /code/docker/prod/entrypoint.sh && \
+#     chmod 755 /code/docker/prod/entrypoint.sh
 
 # Copy the entrypoint.sh script and ensure it has the right line endings and permissions
 COPY entrypoint.sh /code/entrypoint.sh
@@ -35,6 +39,6 @@ COPY entrypoint.sh /code/entrypoint.sh
 
 # Set the ENTRYPOINT for the application to use supervisord
 ENTRYPOINT ["/code/docker/prod/entrypoint.sh"]
-
-# Re-specify the CMD even though it's in the base image, because we override the entrypoint
+# This has to be re-specified even though it's in the base image because we
+# overrode entrypoint.
 CMD ["/usr/bin/supervisord"]
