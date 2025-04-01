@@ -5,7 +5,10 @@ from .models import (
     AzureResourceFormFields,
     AzureResourceFormFieldsRel,
     AzureResourceFormFieldsOptions,
-    AzureResourceFormFieldsOptionsRel
+    AzureResourceFormFieldsOptionsRel,
+    AzureResourceCreationForm,
+    AzureResourceCreationFormFields,
+    AzureResourceCreationFormFieldsOptions,
 )
 
 class AzureResourceFormFieldsOptionsSerializer(serializers.ModelSerializer):
@@ -43,6 +46,32 @@ class AzureResourceFormSerializer(serializers.ModelSerializer):
 
 class AzureResourceSerializer(serializers.ModelSerializer):
     form = AzureResourceFormSerializer(read_only=True, source='azureresourceform')
+
+    class Meta:
+        model = AzureResources
+        fields = ['id', 'name', 'title', 'imageURL', 'form']
+
+class AzureResourceCreationFormFieldsOptionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AzureResourceCreationFormFieldsOptions
+        fields = '__all__'
+
+class AzureResourceCreationFormFieldsSerializer(serializers.ModelSerializer):
+    options = AzureResourceCreationFormFieldsOptionsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = AzureResourceCreationFormFields
+        fields = ['id', 'name', 'type', 'options']
+
+class AzureResourceCreationFormSerializer(serializers.ModelSerializer):
+    formfields = AzureResourceCreationFormFieldsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = AzureResourceCreationForm
+        fields = ['id', 'name', 'formfields']
+
+class AzureResourceCreationSerializer(serializers.ModelSerializer):
+    form = AzureResourceCreationFormSerializer(read_only=True, source='azureresourcecreationform')
 
     class Meta:
         model = AzureResources

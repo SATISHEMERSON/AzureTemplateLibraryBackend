@@ -49,3 +49,30 @@ class AzureResourceFormFieldsOptionsRel(models.Model):
 
     def __str__(self):
         return self.azureresourceformfields.name + ' - ' + self.azureresourceformfieldsoptions.name
+    
+class AzureResourceCreationFormFieldsOptions(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+class AzureResourceCreationFormFields(models.Model):
+    INPUT_TYPE = (
+        ('select', 'Select'),
+        ('text', 'Text'),
+    )
+    name = models.CharField(max_length=100)
+    type = models.CharField(max_length=10, choices=INPUT_TYPE, default='txt')
+    options = models.ManyToManyField(AzureResourceCreationFormFieldsOptions, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+class AzureResourceCreationForm(models.Model):
+    name = models.CharField(max_length=100)
+    azureresource = models.OneToOneField(AzureResources, on_delete=models.CASCADE)
+    formfields = models.ManyToManyField(AzureResourceCreationFormFields, blank=True)
+
+    def __str__(self):
+        return self.name
+    
