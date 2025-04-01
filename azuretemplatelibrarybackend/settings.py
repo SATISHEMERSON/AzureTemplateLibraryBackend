@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,12 +77,14 @@ WSGI_APPLICATION = 'azuretemplatelibrarybackend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+DEFAULT_DATABASE_URL = os.environ['DATABASE_URL']
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=DEFAULT_DATABASE_URL),
+    # Normal configurations
+    'OPTIONS': {
+        'sslmode': 'prefer',
+    },
 }
 
 
@@ -119,7 +122,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    #os.path.join(BASE_DIR, '..', 'public'),
+    # Note: Use public directory that is at the same level at the settings files.
+    os.path.join(BASE_DIR, 'public'),
+)
+
+STATICFILES_FINDERS = (
+    'compressor.finders.CompressorFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+# django-compressor setting
+SCSS_IMPORTS = (
+    os.path.join(STATICFILES_DIRS[0], 'css'),
+)
+
+# COMPRESS_ENABLED = True
+# COMPRESS_PRECOMPILERS = (
+#     ('text/coffeescript', 'coffee --compile --stdio'),
+#     ('text/less', 'lessc {infile} {outfile}'),
+#     ('text/x-sass', 'sass {infile} {outfile}'),
+#     ('text/x-scss', 'django_libsass.SassCompiler'),
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
