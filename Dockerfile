@@ -38,7 +38,7 @@ COPY entrypoint.sh /code/entrypoint.sh
 #     chmod 755 /code/entrypoint.sh
 
 # Set the ENTRYPOINT for the application to use supervisord
-ENTRYPOINT ["/code/docker/prod/entrypoint.sh"]
+ENTRYPOINT ["/code/entrypoint.sh"]
 # This has to be re-specified even though it's in the base image because we
 # overrode entrypoint.
 CMD ["/usr/bin/supervisord"]
