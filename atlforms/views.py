@@ -62,11 +62,13 @@ def cost_analysis(request):
         'budget': data['budget'] if 'budget' in data else data['Budget Constraint'],
         'security': data['security'] if 'security' in data else data['Security Preferences'],
         'usercomment': data['usercomment'] if 'usercomment' in data else data['User Comments'],
+        'location': data['location'] if 'location' in data else data['Location'],
     }
     print(new_data)
     res = openai.cost_analysis(new_data)
     # # print(res)
     # res = {}
+    res['Location'] = data['location'] if 'location' in data else data['Location']
     try:
         return JsonResponse(res, safe=False)
     except Exception as e:

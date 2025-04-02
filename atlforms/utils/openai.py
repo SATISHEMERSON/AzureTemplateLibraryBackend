@@ -29,6 +29,7 @@ def cost_analysis(data):
             "redundancy": data['redundancy'],
             "performance": data['performance'],
             "budget": data['budget'],
+            "location": data['location'],
             "security": {
                 "encryption": True,
                 "privateNetworking":  True if data['security'] == 'private' else False,
