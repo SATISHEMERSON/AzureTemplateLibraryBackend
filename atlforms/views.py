@@ -115,8 +115,8 @@ def resource_creation(request):
     }
     api_endpoint = os.environ.get('AZURE_DEVOPS_API_ENDPOINT')
     token = "Bearer " + os.environ.get('AZURE_DEVOPS_API_KEY')
-    # response = requests.post(api_endpoint, headers={'Authorization': token}, json=data)
-    # print(response.status_code)
+    response = requests.post(api_endpoint, headers={'Authorization': token}, json=data)
+    print(response.status_code)
     # print(response.json())
     # useremail = data['useremail'] if 'useremail' in data else data['User Email']
     # return JsonResponse(data, safe=False)
