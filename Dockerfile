@@ -22,6 +22,9 @@ WORKDIR /code/
 COPY requirements.txt /code/
 RUN pip3 install -r requirements.txt
 
+# Collect static files during the build process
+RUN python /code/manage.py collectstatic --noinput
+
 # Do final prep
 COPY . /code/
 # Convert entrypoint.sh to Unix line endings and make it executable
