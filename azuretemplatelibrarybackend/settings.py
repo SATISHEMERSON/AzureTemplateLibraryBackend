@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'atlforms',
     'corsheaders',
     'django_extensions',
+    'import_export',
 ]
 
 MIDDLEWARE = [

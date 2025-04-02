@@ -1,33 +1,34 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 from . import models
 
 # Register your models here.
 
-class AzureResourcesAdmin(admin.ModelAdmin):
+class AzureResourcesAdmin(ImportExportModelAdmin):
     search_fields = ['name', 'title']
 
-class AzureResourceFormAdmin(admin.ModelAdmin):
+class AzureResourceFormAdmin(ImportExportModelAdmin):
     search_fields = ['name', 'azureresource__name']
 
-class AzureResourceFormFieldsAdmin(admin.ModelAdmin):
+class AzureResourceFormFieldsAdmin(ImportExportModelAdmin):
     search_fields = ['name', 'type']
 
-class AzureResourceFormFieldsRelAdmin(admin.ModelAdmin):
+class AzureResourceFormFieldsRelAdmin(ImportExportModelAdmin):
     search_fields = ['azureresourceform__name', 'azureresourceformfields__name']
 
-class AzureResourceFormFieldsOptionsAdmin(admin.ModelAdmin):
+class AzureResourceFormFieldsOptionsAdmin(ImportExportModelAdmin):
     search_fields = ['name']
 
-class AzureResourceFormFieldsOptionsRelAdmin(admin.ModelAdmin):
+class AzureResourceFormFieldsOptionsRelAdmin(ImportExportModelAdmin):
     search_fields = ['azureresourceformfields__name', 'azureresourceformfieldsoptions__name']
 
-class AzureResourceCreationFormAdmin(admin.ModelAdmin):
+class AzureResourceCreationFormAdmin(ImportExportModelAdmin):
     search_fields = ['name', 'azureresource__name']
 
-class AzureResourceCreationFormFieldsAdmin(admin.ModelAdmin):
+class AzureResourceCreationFormFieldsAdmin(ImportExportModelAdmin):
     search_fields = ['name', 'type']
 
-class AzureResourceCreationFormFieldsOptionsAdmin(admin.ModelAdmin):
+class AzureResourceCreationFormFieldsOptionsAdmin(ImportExportModelAdmin):
     search_fields = ['name']
 
 admin.site.register(models.AzureResources, AzureResourcesAdmin)
