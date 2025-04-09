@@ -102,6 +102,12 @@ def resource_creation(request):
     variables['Requester'] = {}
     variables['Requester']['value'] = 'rkaur@emerson.com'
     variables['Requester']['isSecret'] = False
+    variables['network'] = {}
+    variables['network']['value'] = True if data['VNet Name'] != '' else False
+    variables['network']['isSecret'] = False
+    variables['vnetname'] = {}
+    variables['vnetname']['vnetname'] = str(data['VNet Name']).replace(" ", "").lower()
+    variables['vnetname']['isSecret'] = False
     data = {
       'definitionId': 105,
       'description':
