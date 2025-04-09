@@ -106,7 +106,7 @@ def resource_creation(request):
     variables['location']['value'] = data['Location']
     variables['location']['isSecret'] = False
     variables['Requester'] = {}
-    variables['Requester']['value'] = 'satish.chauhan@emerson.com'
+    variables['Requester']['value'] = 'rkaur@emerson.com'
     variables['Requester']['isSecret'] = False
     data = {
       'definitionId': 105,
