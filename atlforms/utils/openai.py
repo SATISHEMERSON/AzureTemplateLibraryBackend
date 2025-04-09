@@ -13,7 +13,7 @@ def extract_data():
         pass
         raise e
 
-def cost_analysis(data):
+def cost_analysis(userdata):
     try:
         url = os.environ.get('OPENAI_API_ENDPOINT')
     
@@ -22,25 +22,6 @@ def cost_analysis(data):
             'Content-Type': 'application/json',
             'Cache-Control': 'no-cache',
             'API-Key': os.environ.get('OPENAI_API_KEY'),
-        }
-        user_requirements = {
-            "useCase": data['useCase'],
-            "accessFrequency": data['accessfrequency'],
-            "redundancy": data['redundancy'],
-            "performance": data['performance'],
-            "budget": data['budget'],
-            "location": data['location'],
-            "security": {
-                "encryption": True,
-                "privateNetworking":  True if data['security'] == 'private' else False,
-                "publicAccess": True if data['security'] == 'public' else False
-            },
-            "features": {
-                "softDelete": True,
-                "versioning": True,
-                "accessLogs": False
-            },
-            "userComments": data['usercomment']
         }
         data = {
             "messages": [
@@ -56,7 +37,7 @@ def cost_analysis(data):
                 },
                 {
                     "role": "user",
-                    "content": json.dumps(user_requirements)
+                    "content": json.dumps(userdata)
                 }
             ],
             "max_tokens": 500

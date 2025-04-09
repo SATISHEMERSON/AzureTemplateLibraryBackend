@@ -58,20 +58,11 @@ import json
 @csrf_exempt
 def cost_analysis(request):
     data = json.loads(request.body)
-    new_data = {
-        'useCase': data['useCase'] if 'useCase' in data else data['Storage purpose'],
-        'accessfrequency': data['accessfrequency'] if 'accessfrequency' in data else data['Data Access Frequency'],
-        'redundancy': data['redundancy'] if 'redundancy' in data else data['Redundancy Preference'],
-        'performance': data['performance'] if 'performance' in data else data['Performance Requirement'],
-        'budget': data['budget'] if 'budget' in data else data['Budget Constraint'],
-        'usercomment': data['usercomment'] if 'usercomment' in data else data['User Comments'],
-        'location': data['location'] if 'location' in data else data['Location'],
-    }
-    print(new_data)
-    res = openai.cost_analysis(new_data)
+    print(data)
+    res = openai.cost_analysis(data)
     # # print(res)
     # res = {}
-    res['Location'] = data['location'] if 'location' in data else data['Location']
+    res['Location'] = data['location'] if 'location' in data else "East Asia"
     try:
         return JsonResponse(res, safe=False)
     except Exception as e:
