@@ -60,7 +60,6 @@ def cost_analysis(request):
         'redundancy': data['redundancy'] if 'redundancy' in data else data['Redundancy Preference'],
         'performance': data['performance'] if 'performance' in data else data['Performance Requirement'],
         'budget': data['budget'] if 'budget' in data else data['Budget Constraint'],
-        'security': data['security'] if 'security' in data else data['Security Preferences'],
         'usercomment': data['usercomment'] if 'usercomment' in data else data['User Comments'],
         'location': data['location'] if 'location' in data else data['Location'],
     }
@@ -103,7 +102,7 @@ def resource_creation(request):
     variables['accesstier']['value'] = data['accessTier']
     variables['accesstier']['isSecret'] = False
     variables['location'] = {}
-    variables['location']['value'] = data['Location']
+    variables['location']['value'] = str(data['Location']).replace(" ", "").lower()
     variables['location']['isSecret'] = False
     variables['Requester'] = {}
     variables['Requester']['value'] = 'rkaur@emerson.com'
