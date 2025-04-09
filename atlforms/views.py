@@ -45,6 +45,10 @@ def getazurecreationresourceformdata(request, id):
                 {
                     'id': 1,
                     'name': 'rg-z-corp-isummit-atl-001',
+                },
+                {
+                    'id': 2,
+                    'name': 'rg-test-sa-isummit-n-001',
                 }
             ]
     return JsonResponse(data, safe=False)
