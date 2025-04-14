@@ -21,9 +21,12 @@ class AzureResourceFormFields(models.Model):
     INPUT_TYPE = (
         ('select', 'Select'),
         ('text', 'Text'),
+        ('checkbox', 'Checkbox'),
     )
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=10, choices=INPUT_TYPE, default='txt')
+    helper_text = models.TextField(blank=True, null=True)
+    required = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -60,6 +63,7 @@ class AzureResourceCreationFormFields(models.Model):
     INPUT_TYPE = (
         ('select', 'Select'),
         ('text', 'Text'),
+        ('checkbox', 'Checkbox'),
     )
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=10, choices=INPUT_TYPE, default='txt')

@@ -28,7 +28,7 @@ class AzureResourceFormFieldsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AzureResourceFormFields
-        fields = ['id', 'name', 'type', 'options']
+        fields = ['id', 'name', 'type', 'helper_text', 'required', 'options']
 
 class AzureResourceFormFieldsRelSerializer(serializers.ModelSerializer):
     azureresourceformfields = AzureResourceFormFieldsSerializer(read_only=True)
