@@ -31,6 +31,10 @@ COPY . /code/
 #     chmod 755 /code/docker/prod/entrypoint.sh
 
 # Copy the entrypoint.sh script and ensure it has the right line endings and permissions
+RUN python manage.py collectstatic --noinput
+RUN python manage.py makemigrations --noinput
+RUN python manage.py migrate --noinput
+
 COPY entrypoint.sh /code/entrypoint.sh
 
 # Convert entrypoint.sh to Unix line endings and make it executable
