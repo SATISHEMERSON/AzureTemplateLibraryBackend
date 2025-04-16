@@ -1,6 +1,6 @@
 # Use the tiangolo/uwsgi-nginx:python3.6 base image
-FROM python:3.13.3-alpine
-
+FROM python:3.12.10-alpine
+    
 # Copy the necessary configuration files
 COPY uwsgi.ini /app/uwsgi.ini
 COPY nginx.conf /etc/nginx/conf.d/nginx.conf
